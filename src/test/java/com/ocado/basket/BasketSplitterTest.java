@@ -6,19 +6,17 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BasketSplitterTest {
 
     private String path = "G:\\Projects\\Java\\basket\\data";
 
     @org.junit.jupiter.api.Test
     void split1() {
-        BasketSplitterBrute basketSplitterBrute = new BasketSplitterBrute(path + "\\config1.json");
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config1.json");
 
         List<String> input = GetInputJSON(path + "\\basket-11.json");
 
-        Map<String, List<String>> answer = basketSplitterBrute.split(input);
+        Map<String, List<String>> answer = basketSplitter.split(input);
 
         // Print the Map
         System.out.println("Map<String, List<String>>:");
@@ -28,11 +26,11 @@ class BasketSplitterTest {
     }
     @org.junit.jupiter.api.Test
     void split2() {
-        BasketSplitterBrute basketSplitterBrute = new BasketSplitterBrute(path + "\\config.json");
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config0.json");
 
-        List<String> input = GetInputJSON(path + "\\basket-1.json");
+        List<String> input = GetInputJSON(path + "\\basket-01.json");
 
-        Map<String, List<String>> answer = basketSplitterBrute.split(input);
+        Map<String, List<String>> answer = basketSplitter.split(input);
 
         // Print the Map
         System.out.println("Map<String, List<String>>:");
@@ -42,16 +40,74 @@ class BasketSplitterTest {
     }
     @org.junit.jupiter.api.Test
     void split3() {
-        BasketSplitterBrute basketSplitterBrute = new BasketSplitterBrute(path + "\\config.json");
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config0.json");
 
-        List<String> input = GetInputJSON(path + "\\basket-2.json");
+        List<String> input = GetInputJSON(path + "\\basket-02.json");
 
-        Map<String, List<String>> answer = basketSplitterBrute.split(input);
+        Map<String, List<String>> answer = basketSplitter.split(input);
 
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+    @org.junit.jupiter.api.Test
+    void split4() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config2.json");
+
+        List<String> input = GetInputJSON(path + "\\basket-21.json");
+
+        Map<String, List<String>> answer = basketSplitter.split(input);
+
+        // Print the Map
+        System.out.println("Map<String, List<String>>:");
+        for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+    @org.junit.jupiter.api.Test
+    void split5() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config2.json");
+
+        List<String> input = GetInputJSON(path + "\\basket-22.json");
+
+        Map<String, List<String>> answer = basketSplitter.split(input);
+
+        // Print the Map
+        System.out.println("Map<String, List<String>>:");
+        for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    void split6() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config2.json");
+
+        List<String> input = GetInputJSON(path + "\\basket-23.json");
+
+        Map<String, List<String>> answer = basketSplitter.split(input);
+
+        // Print the Map
+        System.out.println("Map<String, List<String>>:");
+        for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    void split_group1() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config8.json");
+
+        for (int i = 0; i < 10; i++) {
+            List<String> input = GetInputJSON(path + "\\basket-8" + i + ".json");
+            Map<String, List<String>> answer = basketSplitter.split(input);
+            // Print the Map
+            System.out.println("Map<String, List<String>>:");
+            for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
         }
     }
 
