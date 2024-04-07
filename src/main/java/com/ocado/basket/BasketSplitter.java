@@ -125,7 +125,6 @@ public class BasketSplitter {
     }
 
     /**
-     * Splits the queue based on the provided list of companies and their associated items.
      * Returns a list of companies that provide the most efficient delivery solution.
      *
      * @return A list of companies with the most optimal delivery solution.
