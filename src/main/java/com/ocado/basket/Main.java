@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class TestRunner {
-    private String path = "G:\\Projects\\Java\\Basket\\data";
-    public void RunTest(String[] args) {
+public class Main {
+    public static void main(String[] args) {
+        String path = "G:\\Projects\\Java\\Basket\\data";
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config8.json");
 
         List<String> input = GetBasketJSON(path + "\\basket-80.json");
@@ -22,7 +22,7 @@ public class TestRunner {
             System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
-    List<String> GetBasketJSON(String path) {
+    static List<String> GetBasketJSON(String path) {
         File file = new File(path);
         ObjectMapper objectMapper = new ObjectMapper();
         try {

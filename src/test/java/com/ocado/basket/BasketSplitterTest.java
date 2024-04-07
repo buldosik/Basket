@@ -66,6 +66,12 @@ class BasketSplitterTest {
         return solutionSizes.equals(outputSizes);
     }
 
+    @Test
+    @DisplayName("Compilation")
+    void compilation() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config.json");
+    }
+
     @ParameterizedTest(name = "Test - {0}")
     @ValueSource(ints = {1, 2})
     @DisplayName("Split - config0.json")
