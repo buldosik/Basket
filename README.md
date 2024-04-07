@@ -30,5 +30,8 @@ Artsiom Siandzevich
 
 - `CalculateOptimalSolution`: Function will be called only if there are more than one solution with the same number of companies.
 
-# Pair.java
+### Pair.java
 Class written myself to not include additional libraries.
+
+# Compiled jar file
+in folder `out\artifacts`
