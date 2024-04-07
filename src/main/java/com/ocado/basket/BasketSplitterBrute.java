@@ -10,7 +10,6 @@ public class BasketSplitterBrute {
     private Map <String, List<String>> configData; //product : list of companies
 
     private final List<String> companies = new ArrayList<>();
-    private List<String> minimumCompaniesList = new ArrayList<>();
 
     private final Map<String, Set<String>> uniqueItems = new HashMap<>();
     private int totalItems = 0;
@@ -24,7 +23,6 @@ public class BasketSplitterBrute {
                     .flatMap(List::stream)
                     .distinct()
                     .forEach(companies::add);
-            minimumCompaniesList = companies;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,9 +32,9 @@ public class BasketSplitterBrute {
         totalItems = items.size();
         filteringBasketByCompanies(items);
 
-        RecursiveSplit(new ArrayList<>(), new HashSet<>());
+        List<String> outputCompaniesList = QueueSplit();
 
-        return PreparingOutputSplit(minimumCompaniesList);
+        return PreparingOutputSplit(outputCompaniesList);
     }
 
     private void filteringBasketByCompanies(List<String> items) {
@@ -49,40 +47,58 @@ public class BasketSplitterBrute {
         companies.sort((s1, s2) -> Integer.compare(uniqueItems.get(s2).size(), uniqueItems.get(s1).size()));
     }
 
-    private void RecursiveSplit(List<String> currentCompaniesList, Set<String> currentItems) {
-        if (currentCompaniesList.size() >= minimumCompaniesList.size())
-            return;
-        List<Pair<String, Integer>> possibleCompaniesToAdd = GetPossibleMerges(currentCompaniesList, currentItems);
+    private List<String> QueueSplit() {
+        Set<String> currentItems = new HashSet<>();
+        List<String> currentCompaniesList = new ArrayList<>();
+        List<String> outputCompaniesList = new ArrayList<>(companies);
 
-        for (Pair<String, Integer> company : possibleCompaniesToAdd) {
-            HashSet<String> newItems = new HashSet<>(currentItems);
-            newItems = mergeSets(newItems, uniqueItems.get(company.first()));
+        PriorityQueue<Pair<List<String>, Set<String>>> queue = new PriorityQueue<>(Comparator.comparingInt(pair -> pair.second().size()));
+        queue.add(new Pair<>(currentCompaniesList, currentItems));
 
-            List<String> newCompanies = new ArrayList<>(currentCompaniesList);
-            newCompanies.add(company.first());
+        while (!queue.isEmpty()) {
+            Pair<List<String>, Set<String>> pair = queue.poll();
+            currentCompaniesList = pair.first();
 
-            if (newItems.size() >= totalItems) {
-                CompareCompaniesLists(newCompanies);
-                return;
+            if (currentCompaniesList.size() >= outputCompaniesList.size())
+                continue;
+
+            //System.out.println(currentCompaniesList + " --- " + currentItems.size());
+
+            currentItems = pair.second();
+
+            List<Pair<String, Integer>> possibleCompaniesToAdd = GetPossibleMerges(currentCompaniesList, currentItems);
+            for (Pair<String, Integer> company : possibleCompaniesToAdd) {
+                HashSet<String> newItems = new HashSet<>(currentItems);
+                newItems = mergeSets(newItems, uniqueItems.get(company.first()));
+
+                List<String> newCompanies = new ArrayList<>(currentCompaniesList);
+                newCompanies.add(company.first());
+
+                if (newItems.size() >= totalItems) {
+                    outputCompaniesList = CompareCompaniesLists(outputCompaniesList, newCompanies);
+                    continue;
+                }
+                queue.add(new Pair<>(newCompanies, newItems));
             }
-            RecursiveSplit(newCompanies, newItems);
         }
+        return outputCompaniesList;
     }
 
-    private void CompareCompaniesLists(List<String> newCompanies) {
-        if (newCompanies.size() == minimumCompaniesList.size()) {
+    private List<String> CompareCompaniesLists(List<String> currentCompanies, List<String> newCompanies) {
+        if (newCompanies.size() == currentCompanies.size()) {
             for (int i = 0; i < newCompanies.size(); i++) {
-                String oldCompany = minimumCompaniesList.get(i);
+                String oldCompany = currentCompanies.get(i);
                 String newCompany = newCompanies.get(i);
                 if(uniqueItems.get(oldCompany).size() < uniqueItems.get(newCompany).size())
-                    minimumCompaniesList = new ArrayList<>(newCompanies);
+                    currentCompanies = newCompanies;
                 if(uniqueItems.get(oldCompany).size() != uniqueItems.get(newCompany).size())
                     break;
             }
         }
-        if (newCompanies.size() < minimumCompaniesList.size()) {
-            minimumCompaniesList = new ArrayList<>(newCompanies);
+        if (newCompanies.size() < currentCompanies.size()) {
+            currentCompanies = newCompanies;
         }
+        return currentCompanies;
     }
 
     private List<Pair<String, Integer>> GetPossibleMerges(List<String> currentCompaniesList, Set<String> currentItems) {
@@ -121,7 +137,7 @@ public class BasketSplitterBrute {
     // Function to calculate the difference between two sets
     private <T> int calculateDifference(Set<T> set1, Set<T> set2) {
         Set<T> difference = new HashSet<>(set1);
-        difference.removeAll(set2); //possible error
+        difference.removeAll(set2);
         return difference.size();
     }
 }
