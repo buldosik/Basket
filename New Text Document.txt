@@ -1,0 +1,6 @@
+"Cocoa Butter": ["Next day shipping", "Mailbox delivery", "In-store pick-up", "Parcel locker", "Courier", "Same day delivery"],
+"Tart - Raisin And Pecan": ["Express Collection", "Courier", "Mailbox delivery"],
+"Table Cloth 54x72 White": ["Next day shipping", "Parcel locker", "Mailbox delivery", "Courier"],
+"Flower - Daisies": ["Courier", "Pick-up point", "In-store pick-up", "Express Collection", "Same day delivery"],
+"Fond - Chocolate": ["Pick-up point", "Express Collection", "Mailbox delivery"],
+"Cookies - Englishbay Wht": ["Courier", "Pick-up point", "Express Collection", "Parcel locker"],

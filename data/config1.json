@@ -1,0 +1,9 @@
+{
+  "Carrots": ["Express", "Click"],
+  "Beer": ["Express"],
+  "Steak": ["Express", "Click"],
+  "Battery": ["Express", "Courier"],
+  "Espresso": ["Courier", "Click"],
+  "Chair": ["Courier"]
+}
+
