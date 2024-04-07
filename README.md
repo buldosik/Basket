@@ -1,3 +1,6 @@
+# Author
+Artsiom Siandzevich
+
 # Files
 - BasketSplitter.java
 - Pair.java
