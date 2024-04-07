@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args) {
         String path = "G:\\Projects\\Java\\basket\\data";
         TestGenerator testGenerator = new TestGenerator(path);
-        testGenerator.GenerateGroup(1000, 10, "8");
+        testGenerator.GenerateGroup(1000, 10, 30, "7");
     }
 }

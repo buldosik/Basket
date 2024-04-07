@@ -38,13 +38,12 @@ public class TestGenerator {
         }
     }
 
-    public void GenerateTest(String filename, int test, int countItems) {
+    public void GenerateTest(String filename, int test, int totalItems, int countItems) {
         String filePath = path + "\\basket-" + filename + test + ".json";
         List<String> output = new ArrayList<>();
         List<Integer> items = new ArrayList<>();
 
         Random rand = new Random();
-        int totalItems = rand.nextInt(countItems / 10);
         while (items.size() < totalItems) {
             int item = rand.nextInt(countItems);
             if (items.contains(item))
@@ -62,10 +61,10 @@ public class TestGenerator {
         }
     }
 
-    public void GenerateGroup(int items, int companies, String id) {
-        GenerateConfig(id, items, companies);
+    public void GenerateGroup(int items_config, int companies, int items_basket, String id) {
+        GenerateConfig(id, items_config, companies);
         for (int i = 0; i < 10; i++) {
-            GenerateTest(id, i, items);
+            GenerateTest(id, i, items_basket, items_config);
         }
     }
 }

@@ -77,7 +77,7 @@ public class BasketSplitter {
                 continue;
             passedCombinations.add(newCombination);
 
-            List<Pair<String, Integer>> possibleCompaniesToAdd = GetPossibleMerges(currentCompaniesList, currentItems);
+            List<Pair<String, Integer>> possibleCompaniesToAdd = GetPossibleMerges(currentCompaniesList, currentItems, companies);
             for (Pair<String, Integer> company : possibleCompaniesToAdd) {
                 HashSet<String> newItems = new HashSet<>(currentItems);
                 newItems = mergeSets(newItems, uniqueItems.get(company.first()));
@@ -108,9 +108,9 @@ public class BasketSplitter {
         return currentCompanies;
     }
 
-    private List<Pair<String, Integer>> GetPossibleMerges(List<String> currentCompaniesList, Set<String> currentItems) {
+    private List<Pair<String, Integer>> GetPossibleMerges(List<String> currentCompaniesList, Set<String> currentItems, List<String> companiesToPick) {
         List<Pair<String, Integer>> possibleMerges = new ArrayList<>();
-        for (String company : companies) {
+        for (String company : companiesToPick) {
             if(currentCompaniesList.contains(company))
                 continue;
             int difference =  calculateDifference(uniqueItems.get(company), currentItems);
@@ -122,14 +122,18 @@ public class BasketSplitter {
         return possibleMerges;
     }
 
-    private Map<String, List<String>> PreparingOutputSplit(List<String> companies) {
-        Map <String, List<String>> outputSplit = new LinkedHashMap<>();;
+    private Map<String, List<String>> PreparingOutputSplit(List<String> outputCompanies) {
+        Map <String, List<String>> outputSplit = new LinkedHashMap<>();
         HashSet<String> deliveredItems = new HashSet<>();
-        for (String company : companies) {
-            Set<String> companyItems = uniqueItems.get(company);
+        List<Pair<String, Integer>> bestCompanies = GetPossibleMerges(List.of(), deliveredItems, outputCompanies);
+        while (!bestCompanies.isEmpty()) {
+            String bestCompany = bestCompanies.getFirst().first();
+            Set<String> companyItems = uniqueItems.get(bestCompany);
             companyItems.removeAll(deliveredItems);
+            outputCompanies.remove(bestCompany);
             deliveredItems.addAll(companyItems);
-            outputSplit.put(company, new ArrayList<>(companyItems));
+            outputSplit.put(bestCompany, new ArrayList<>(companyItems));
+            bestCompanies = GetPossibleMerges(List.of(), deliveredItems, outputCompanies);
         }
         return outputSplit;
     }

@@ -21,9 +21,10 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
+
     @org.junit.jupiter.api.Test
     void split2() {
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config0.json");
@@ -35,9 +36,10 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
+
     @org.junit.jupiter.api.Test
     void split3() {
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config0.json");
@@ -49,9 +51,10 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
+
     @org.junit.jupiter.api.Test
     void split4() {
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config2.json");
@@ -63,9 +66,10 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
+
     @org.junit.jupiter.api.Test
     void split5() {
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config2.json");
@@ -77,7 +81,7 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
         }
     }
 
@@ -92,12 +96,25 @@ class BasketSplitterTest {
         // Print the Map
         System.out.println("Map<String, List<String>>:");
         for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
+        }
+    }
+
+    @org.junit.jupiter.api.Test
+    void split_70() {
+        BasketSplitter basketSplitter = new BasketSplitter(path + "\\config7.json");
+
+        List<String> input = GetInputJSON(path + "\\basket-70" + ".json");
+        Map<String, List<String>> answer = basketSplitter.split(input);
+        // Print the Map
+        System.out.println("Map<String, List<String>>:");
+        for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 
     @org.junit.jupiter.api.Test
-    void split_group1() {
+    void split_8() {
         BasketSplitter basketSplitter = new BasketSplitter(path + "\\config8.json");
 
         for (int i = 0; i < 10; i++) {
@@ -106,7 +123,7 @@ class BasketSplitterTest {
             // Print the Map
             System.out.println("Map<String, List<String>>:");
             for (Map.Entry<String, List<String>> entry : answer.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
+                System.out.println(entry.getKey() + " : " + entry.getValue().size() + " " + entry.getValue());
             }
         }
     }
