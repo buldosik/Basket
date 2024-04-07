@@ -39,10 +39,17 @@ public class BasketSplitter {
 
     private void filteringBasketByCompanies(List<String> items) {
         uniqueItems.clear();
-        items.forEach(item ->
-                configData.get(item).forEach(company ->
-                        uniqueItems.computeIfAbsent(company, k -> new HashSet<>()).add(item)
-                )
+        items.forEach(item -> {
+            System.out.print(item + " , ");
+            List<String> temp = configData.get(item);
+            for (String temp1 : temp) {
+                System.out.print(temp1 + " , ");
+            }
+            System.out.println();
+                    configData.get(item).forEach(company ->
+                            uniqueItems.computeIfAbsent(company, k -> new HashSet<>()).add(item)
+                    );
+                }
         );
 
         companies.sort((s1, s2) -> Integer.compare(uniqueItems.get(s2).size(), uniqueItems.get(s1).size()));
